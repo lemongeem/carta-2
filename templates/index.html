@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head aria-colcount="1">
+  <meta charset="UTF-8">
+  <title>Cartita para ti 💌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body font="arial">
+ 
+  <div class="contenedor">
+    <!-- Imagen cerrada como JPG -->
+    <img src="/static/cerrado.jpg" alt="Papel cerrado" id="cerrado" class="papel" onclick="abrir()">
+
+    <!-- Libro con páginas -->
+    <div id="libro" class="libro" style="display: none;">
+             <!-- Página 1 -->
+       <div class="pagina pagina-activa" id="pagina1">
+         <img src="/static/pag1.jpeg" alt="Página 1" class="imagen-fondo">
+         <div class="contenido-pagina">
+           <div>(mi letra es horrible jsadjajda)</div>
+           <div class="texto-pagina" align="left">
+            
+           </div>
+         </div>
+         <div class="pestana pestana-siguiente" onclick="siguientePagina()">
+           <span>→</span>
+         </div>
+       </div>
+
+             <!-- Página 2 -->
+       <div class="pagina" id="pagina2">
+         <img src="/static/pag2.jpeg" alt="Página 2" class="imagen-fondo">
+         <div class="contenido-pagina">
+           <div class="texto-pagina">
+             
+             
+           </div>
+         </div>
+         <div class="pestana pestana-anterior" onclick="paginaAnterior()">
+           <span>←</span>
+         </div>
+       </div>
+    </div>
+  </div>
+
+  <!-- Reproductor de música -->
+  <div class="reproductor-musica">
+    <img src="/static/fondo-musica.jpeg" alt="Imagen música" class="imagen-musica">
+    <div class="reproductor-contenido">
+      <h3 class="titulo-musica">🎵 Play</h3>
+      <audio id="audio-player" controls>
+        <source src="/static/musica.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+      </audio>
+     
+    </div>
+  </div>
+
+  <script>
+    let paginaActual = 1;
+    const totalPaginas = 2;
+
+    function abrir() {
+      const cerrado = document.getElementById("cerrado");
+      const libro = document.getElementById("libro");
+
+      // Fade out
+      cerrado.style.opacity = 1;
+      const fadeOut = setInterval(() => {
+        if (cerrado.style.opacity > 0) {
+          cerrado.style.opacity -= 0.05;
+        } else {
+          clearInterval(fadeOut);
+          cerrado.style.display = "none";
+          libro.style.display = "block";
+        }
+      }, 30);
+    }
+
+    function siguientePagina() {
+      if (paginaActual < totalPaginas) {
+        // Ocultar página actual
+        document.getElementById(`pagina${paginaActual}`).classList.remove('pagina-activa');
+        
+        // Mostrar siguiente página
+        paginaActual++;
+        document.getElementById(`pagina${paginaActual}`).classList.add('pagina-activa');
+      }
+    }
+
+    function paginaAnterior() {
+      if (paginaActual > 1) {
+        // Ocultar página actual
+        document.getElementById(`pagina${paginaActual}`).classList.remove('pagina-activa');
+        
+        // Mostrar página anterior
+        paginaActual--;
+        document.getElementById(`pagina${paginaActual}`).classList.add('pagina-activa');
+      }
+    }
+  </script>
+</body>
+</html>
